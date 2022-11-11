@@ -3,6 +3,15 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
   theme: {
+    screens: {
+      xs: '0px',
+      sm: '400px',
+      md: '600px',
+      'md-2': '700px',
+      xm: '960px',
+      lg: '1280px',
+      xl: '1920px',
+    },
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
     },
@@ -11,10 +20,10 @@ module.exports = {
         1: '1px',
       },
       backgroundColor: {
-        primary: '#F8FAFC',
-        secondary: 'white',
+        primary: 'white',
         'primary-dark': '#181818',
-        'secondary-dark': '#202020',
+        // secondary: '#F8FAFC',
+        // 'secondary-dark': '#202020',
       },
       colors: {
         primary: 'black',

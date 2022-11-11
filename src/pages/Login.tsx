@@ -13,8 +13,8 @@ const Login = () => {
     login()
   }
   return (
-    <div className='background-primary min-h-screen w-full flex justify-center items-center'>
-      <div className='border background-secondary p-16 rounded-md flex flex-col items-center gap-4'>
+    <div className='bg min-h-screen w-full flex justify-center items-center'>
+      <div className='border bg p-16 rounded-md flex flex-col items-center gap-4'>
         <LazyLoadImage src='/images/youtube-logo.png' alt='youtube' height={120} width={120} />
         <h1 className='heading-lg'>Youtube Redesign</h1>
         <button

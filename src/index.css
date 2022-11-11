@@ -14,20 +14,32 @@
   .heading-lg {
     @apply font-sans text-2xl text-primary dark:text-primary-dark font-medium;
   }
-  .heading-md {
+  /* .heading-md {
   }
   .heading-sm {
+  } */
+
+  .para-lg {
+    @apply text-primary dark:text-primary-dark text-base font-sans;
+  }
+  .para-regular {
+    @apply text-primary dark:text-primary-dark text-sm font-sans;
   }
 
   .border {
     @apply border-1 border-soft dark:border-soft-dark;
   }
 
-  .background-primary {
+  .bg {
     @apply bg-primary dark:bg-primary-dark;
   }
-  .background-secondary {
-    @apply bg-secondary dark:bg-secondary-dark;
+
+  .menuIcon {
+    @apply h-6 w-6 text-primary dark:text-primary-dark;
+  }
+
+  .hover-color {
+    @apply hover:bg-stone-200 dark:bg-neutral-500;
   }
 }
 
