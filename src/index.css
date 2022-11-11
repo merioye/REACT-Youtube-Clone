@@ -3,3 +3,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .button {
+    @apply font-sans py-2 px-5 rounded-md text-white font-medium hover:bg-red-700 bg-red-600 transition-all duration-300 relative overflow-hidden;
+  }
+}
+
+@layer utilities {
+  .heading-lg {
+    @apply font-sans text-2xl text-primary dark:text-primary-dark font-medium;
+  }
+  .heading-md {
+  }
+  .heading-sm {
+  }
+
+  .border {
+    @apply border-1 border-soft dark:border-soft-dark;
+  }
+
+  .background-primary {
+    @apply bg-primary dark:bg-primary-dark;
+  }
+  .background-secondary {
+    @apply bg-secondary dark:bg-secondary-dark;
+  }
+}
+
+/* button ripple effect element style  */
+span.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 600ms linear;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

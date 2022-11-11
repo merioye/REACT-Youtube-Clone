@@ -1,9 +1,20 @@
+import { useLayoutEffect } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Login from './pages/Login'
+import { setThemeValueToHtmlRoot } from './utils/shared/theme'
+
 function App() {
-  return (
-    <div>
-      <h1 className='text-primary'>My first react typescript app</h1>
-    </div>
-  )
+  useLayoutEffect(() => {
+    setThemeValueToHtmlRoot()
+  }, [])
+
+  const router = createBrowserRouter([
+    {
+      path: '/login',
+      element: <Login />,
+    },
+  ])
+  return <RouterProvider router={router} />
 }
 
 export default App

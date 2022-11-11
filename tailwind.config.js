@@ -7,8 +7,11 @@ module.exports = {
       sans: ['Roboto', 'sans-serif'],
     },
     extend: {
+      borderWidth: {
+        1: '1px',
+      },
       backgroundColor: {
-        primary: '#f9f9f9',
+        primary: '#F8FAFC',
         secondary: 'white',
         'primary-dark': '#181818',
         'secondary-dark': '#202020',
@@ -20,7 +23,7 @@ module.exports = {
         'secondary-dark': '#aaaaaa',
       },
       borderColor: {
-        soft: '#f5f5f5',
+        soft: '#e5e7eb',
         'soft-dark': '#373737',
       },
     },
