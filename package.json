@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@react-oauth/google": "^0.4.0",
+    "@redux-devtools/extension": "^3.2.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -13,8 +14,10 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^4.6.0",
     "react-lazy-load-image-component": "^1.5.6",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -50,6 +53,7 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
+    "@types/react-helmet": "^6.1.5",
     "@types/react-lazy-load-image-component": "^1.5.2",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
@@ -63,6 +67,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
+    "tailwind-scrollbar": "^2.0.1",
     "tailwindcss": "^3.2.2",
     "typescript": "^4.8.4"
   }

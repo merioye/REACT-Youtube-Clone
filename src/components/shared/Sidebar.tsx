@@ -12,37 +12,15 @@ import { MdOutlineSubscriptions, MdSubscriptions, MdOutlineVideoLibrary } from '
 import { SlFire } from 'react-icons/sl'
 import { FiSun } from 'react-icons/fi'
 import { HiOutlineMoon } from 'react-icons/hi'
+import { menuItems1, menuItems2 } from '../../data/menuItems'
 import { toggleTheme } from '../../utils/shared/theme'
 import { addRippleEffect } from '../../utils/shared/addRippleEffect'
-
-const menuItems1 = [
-  {
-    title: 'Home',
-    link: '/',
-  },
-  {
-    title: 'Subscriptions',
-    link: '/subscriptions',
-  },
-  {
-    title: 'Liked videos',
-    link: '/liked-videos',
-  },
-]
-const menuItems2 = [
-  {
-    title: 'Trending',
-  },
-  {
-    title: 'Library',
-  },
-  {
-    title: 'Watch later',
-  },
-]
+import { useAppSelector } from '../../hooks/redux-hooks'
 
 const Sidebar = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('yt-redesign-theme'))
+  const user = { name: 'faheem' }
+  const [theme, setTheme] = useState(localStorage.getItem('yt-redesign-theme') || '')
+  const { showSidebar } = useAppSelector((state) => state.sidebar)
 
   const handleToggleThemeBtnClick = (e: MouseEvent<HTMLElement>) => {
     addRippleEffect(e)
@@ -54,15 +32,17 @@ const Sidebar = () => {
     addRippleEffect(e)
   }
   return (
-    <aside className='bg h-full w-[72px] sm:w-60 overflow-auto px-3 md:px-8 py-3'>
+    <aside
+      className={`bg h-full w-[72px] md:w-28 xm:w-60 overflow-auto px-3 md:px-8 xm:px-8 py-3 ease-in-out duration-300 fixed left-0 top-[59px] ${
+        showSidebar
+          ? 'translate-x-0'
+          : 'translate-x-[-72px] md:translate-x-[-112px] xm:translate-x-[-240px]'
+      }`}
+    >
       {menuItems1.map((item) => (
         <NavLink to={item.link} key={item.title}>
           {({ isActive }) => (
-            <div
-              className={`flex items-center gap-5 w-full h-10 px-3 ${
-                isActive ? 'bg-stone-100 dark:bg-neutral-600' : ''
-              } hover:hover-color rounded-[10px] transition-all duration-300 mb-1`}
-            >
+            <div className={`menuItem ${isActive ? 'iconBtn-bg' : ''}`}>
               {item.title === 'Home' ? (
                 isActive ? (
                   <AiFillHome className='menuIcon' />
@@ -84,7 +64,11 @@ const Sidebar = () => {
                   <AiOutlineLike className='menuIcon' />
                 )
               ) : null}
-              <p className={`para-regular ${isActive ? 'font-medium' : 'font-normal'}`}>
+              <p
+                className={`para-regular ${
+                  isActive ? 'font-medium' : 'font-normal'
+                } hidden xm:block`}
+              >
                 {item.title}
               </p>
             </div>
@@ -94,33 +78,27 @@ const Sidebar = () => {
 
       <hr className='border-soft dark:border-soft-dark my-3' />
       {menuItems2.map((item) => (
-        <div
-          key={item.title}
-          onClick={addRippleEffect}
-          className='flex items-center gap-5 w-full h-10 px-3 hover:hover-color rounded-[10px] transition-all duration-300 mb-1 cursor-pointer relative overflow-hidden'
-        >
+        <div key={item.title} onClick={addRippleEffect} className='menuItem'>
           {item.title === 'Trending' && <SlFire className='menuIcon' />}
           {item.title === 'Library' && <MdOutlineVideoLibrary className='menuIcon' />}
           {item.title === 'Watch later' && <AiOutlineClockCircle className='menuIcon' />}
-          <p className='para-regular font-normal'>{item.title}</p>
+          <p className='para-regular font-normal hidden xm:block'>{item.title}</p>
         </div>
       ))}
       <hr className='border-soft dark:border-soft-dark my-3' />
-      <div
-        onClick={handleToggleThemeBtnClick}
-        className='flex items-center gap-5 w-full h-10 px-3 hover:hover-color rounded-[10px] transition-all duration-300 mb-1 cursor-pointer relative overflow-hidden'
-      >
+      <div onClick={handleToggleThemeBtnClick} className='menuItem'>
         {theme === 'dark' ? <FiSun className='menuIcon' /> : <HiOutlineMoon className='menuIcon' />}
 
-        <p className='para-regular font-normal'>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</p>
+        <p className='para-regular font-normal hidden xm:block'>
+          {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+        </p>
       </div>
-      <div
-        onClick={handleLogoutBtnClick}
-        className='flex items-center gap-5 w-full h-10 px-3 hover:hover-color rounded-[10px] transition-all duration-300 mb-1 cursor-pointer relative overflow-hidden'
-      >
-        <AiOutlineLogout className='menuIcon' />
-        <p className='para-regular font-normal'>Logout</p>
-      </div>
+      {user && (
+        <div onClick={handleLogoutBtnClick} className='menuItem'>
+          <AiOutlineLogout className='menuIcon' />
+          <p className='para-regular font-normal hidden xm:block'>Logout</p>
+        </div>
+      )}
     </aside>
   )
 }

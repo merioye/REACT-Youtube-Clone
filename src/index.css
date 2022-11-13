@@ -15,15 +15,19 @@
     @apply font-sans text-2xl text-primary dark:text-primary-dark font-medium;
   }
   /* .heading-md {
-  }
-  .heading-sm {
   } */
+  .heading-sm {
+    @apply font-sans text-base font-medium text-primary dark:text-primary-dark;
+  }
 
   .para-lg {
     @apply text-primary dark:text-primary-dark text-base font-sans;
   }
   .para-regular {
     @apply text-primary dark:text-primary-dark text-sm font-sans;
+  }
+  .para-sm {
+    @apply font-sans font-normal text-xs text-secondary dark:text-secondary-dark;
   }
 
   .border {
@@ -34,12 +38,26 @@
     @apply bg-primary dark:bg-primary-dark;
   }
 
+  .iconBtn-bg {
+    @apply bg-[#0000000d] dark:bg-neutral-600;
+  }
+  .hover-color {
+    @apply hover:bg-stone-200 dark:bg-neutral-500;
+  }
+
   .menuIcon {
     @apply h-6 w-6 text-primary dark:text-primary-dark;
   }
+  .menuItem {
+    @apply flex items-center gap-5 w-full h-10 px-3 hover:hover-color rounded-[10px] transition-all duration-300 mb-1 cursor-pointer relative overflow-hidden;
+  }
 
-  .hover-color {
-    @apply hover:bg-stone-200 dark:bg-neutral-500;
+  .thin-scrollbar {
+    @apply scrollbar-thin scrollbar-thumb-stone-300 dark:scrollbar-thumb-neutral-500 scrollbar-track-stone-100 dark:scrollbar-track-neutral-600 scrollbar-thumb-rounded-full scrollbar-track-rounded-full cursor-pointer scroll-smooth;
+  }
+
+  .active-category {
+    @apply font-medium bg-black dark:bg-white text-white dark:text-black;
   }
 }
 
@@ -56,4 +74,33 @@ span.ripple {
     transform: scale(4);
     opacity: 0;
   }
+}
+
+/* hide scrollbars */
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* hide overflowed text in single line */
+.overflowed-text1 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* hide overflowed text in 2 lines */
+.overflowed-text2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
 }
