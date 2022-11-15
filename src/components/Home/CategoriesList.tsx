@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Category from './Category'
+import { CategorySkeleton } from '../skeletons'
 
 const categories = [
   'All',
@@ -20,17 +21,22 @@ const categories = [
   'Movies',
 ]
 const CategoriesList = () => {
+  const isLoading = false
   const [selectedCategory, setSelectedCategory] = useState('All')
   return (
     <header className='flex gap-3 h-[40px] mb-1 overflow-x-scroll scrollbar-hide'>
-      {categories.map((category) => (
-        <Category
-          key={category}
-          category={category}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-      ))}
+      {categories.map((category) =>
+        isLoading ? (
+          <CategorySkeleton key={category} />
+        ) : (
+          <Category
+            key={category}
+            category={category}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+        ),
+      )}
     </header>
   )
 }

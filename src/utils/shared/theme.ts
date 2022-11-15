@@ -1,3 +1,6 @@
+import { store } from '../../redux/store'
+import { setTheme } from '../../redux/actionCreators'
+
 export function setThemeValueToHtmlRoot() {
   const root = window.document.documentElement
   let themeValue = localStorage.getItem('yt-redesign-theme')
@@ -6,6 +9,7 @@ export function setThemeValueToHtmlRoot() {
     themeValue = 'light'
   }
   root.setAttribute('class', themeValue)
+  store.dispatch(setTheme(themeValue))
 }
 
 export function toggleTheme() {

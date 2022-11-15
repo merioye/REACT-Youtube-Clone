@@ -76,7 +76,7 @@ const Sidebar = () => {
         </NavLink>
       ))}
 
-      <hr className='border-soft dark:border-soft-dark my-3' />
+      <hr className='hr my-3' />
       {menuItems2.map((item) => (
         <div key={item.title} onClick={addRippleEffect} className='menuItem'>
           {item.title === 'Trending' && <SlFire className='menuIcon' />}
@@ -85,7 +85,7 @@ const Sidebar = () => {
           <p className='para-regular font-normal hidden xm:block'>{item.title}</p>
         </div>
       ))}
-      <hr className='border-soft dark:border-soft-dark my-3' />
+      <hr className='hr my-3' />
       <div onClick={handleToggleThemeBtnClick} className='menuItem'>
         {theme === 'dark' ? <FiSun className='menuIcon' /> : <HiOutlineMoon className='menuIcon' />}
 
