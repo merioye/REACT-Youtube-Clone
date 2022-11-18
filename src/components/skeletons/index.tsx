@@ -2,7 +2,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { useAppSelector } from '../../hooks/redux-hooks'
 
-const CustomSkeletonTheme = ({ children }: { children: React.ReactNode }) => {
+export const CustomSkeletonTheme = ({ children }: { children: React.ReactNode }) => {
   const { mode } = useAppSelector((state) => state.theme)
 
   return (
@@ -134,6 +134,97 @@ export const ChannelDetailsSkeleton = () => {
             <Skeleton className='h-full' />
           </div>
           <div className='leading-none h-4 w-[80px]'>
+            <Skeleton className='h-full' />
+          </div>
+        </div>
+      </div>
+    </CustomSkeletonTheme>
+  )
+}
+
+export const VideoDetailsSkeleton = () => {
+  return (
+    <CustomSkeletonTheme>
+      <div className='leading-none h-10'>
+        <Skeleton className='h-full' />
+      </div>
+      <div className='flex items-center justify-between mt-3'>
+        <div className='leading-none h-5 w-28'>
+          <Skeleton className='h-full' />
+        </div>
+        <div className='leading-none h-9 w-28 rounded-full overflow-hidden'>
+          <Skeleton className='h-full' />
+        </div>
+      </div>
+      <hr className='hr my-3' />
+      <div className='flex justify-between items-center'>
+        <div className='flex items-center'>
+          <div className='leading-none h-10 w-10 mr-3'>
+            <Skeleton className='h-full' circle />
+          </div>
+          <div>
+            <div className='leading-none h-5 w-28 mb-2'>
+              <Skeleton className='h-5' />
+            </div>
+            <div className='leading-none h-3 w-16'>
+              <Skeleton className='h-full' />
+            </div>
+          </div>
+        </div>
+        <div className='leading-none h-9 w-28 rounded-full overflow-hidden'>
+          <Skeleton className='h-full' />
+        </div>
+      </div>
+      <hr className='hr my-3' />
+      <div className='leading-none h-20 rounded-xl overflow-hidden'>
+        <Skeleton className='h-full' />
+      </div>
+    </CustomSkeletonTheme>
+  )
+}
+
+export const CommentSkeleton = () => {
+  return (
+    <CustomSkeletonTheme>
+      <div className='flex gap-5'>
+        <div className='leading-none h-10 w-10'>
+          <Skeleton className='h-full' circle />
+        </div>
+        <div className='flex flex-col w-[calc(100%-60px)]'>
+          <div className='leading-none h-4 w-28 mb-2'>
+            <Skeleton className='h-full' />
+          </div>
+          <div className='leading-none h-12'>
+            <Skeleton className='h-full' />
+          </div>
+        </div>
+      </div>
+    </CustomSkeletonTheme>
+  )
+}
+
+export const WatchVideCardSkeleton = () => {
+  return (
+    <CustomSkeletonTheme>
+      <div className='flex gap-3 mt-2'>
+        <div className='leading-none rounded-md overflow-hidden w-1/2 lg:w-[180px] relative'>
+          <div className='absolute top-0 left-0 w-full h-full'>
+            <Skeleton className='h-full' />
+          </div>
+          <LazyLoadImage
+            src='/images/placeholder.jpg'
+            placeholderSrc='/images/placeholder.jpg'
+            effect='blur'
+            width={'100%'}
+            style={{ visibility: 'hidden', position: 'relative', zIndex: 0 }}
+          />
+        </div>
+        <div className='leading-none w-1/2 lg:w-[208px]'>
+          <Skeleton className='h-8' />
+          <div className='leading-none h-3 w-1/2 my-2'>
+            <Skeleton className='h-full' />
+          </div>
+          <div className='leading-none h-3 w-1/2'>
             <Skeleton className='h-full' />
           </div>
         </div>

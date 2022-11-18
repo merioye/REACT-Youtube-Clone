@@ -6,7 +6,7 @@ const SearchedVideoCard = () => {
     <div className='flex w-full'>
       <div className='flex-1 basis-[1e-9px] mr-4 max-w-[360px] min-w-60'>
         <Link to='#'>
-          <div className='flex items-center w-full h-auto rounded-xl overflow-hidden'>
+          <div className='flex items-center w-full h-auto rounded-xl overflow-hidden relative'>
             <LazyLoadImage
               src='/images/thumbnail.jpg'
               alt='thumbnail'
@@ -15,6 +15,9 @@ const SearchedVideoCard = () => {
               width={'100%'}
               style={{ objectFit: 'cover' }}
             />
+            <div className='absolute right-0 bottom-0 m-1 rounded flex items-center text-xs px-1 font-sans bg-black text-white'>
+              3:26
+            </div>
           </div>
         </Link>
       </div>

@@ -14,6 +14,9 @@
   .heading-lg {
     @apply font-sans text-2xl text-primary dark:text-primary-dark font-medium;
   }
+  .heading-xm {
+    @apply font-sans text-xl text-primary dark:text-primary-dark font-medium;
+  }
   .heading-md {
     @apply font-sans text-lg text-primary dark:text-primary-dark font-normal;
   }
