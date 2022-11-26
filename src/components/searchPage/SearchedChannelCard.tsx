@@ -1,17 +1,17 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { Link } from 'react-router-dom'
-import numeral from 'numeral'
+import moment from 'moment'
 
-import { Subscription } from '../../types/channel.types'
+import { SearchItem } from '../../types/search.types'
 
 type IProps = {
-  channel: Subscription
+  channel: SearchItem
 }
-const ChannelCard = ({ channel }: IProps) => {
-  const { contentDetails, snippet } = channel
-  const { thumbnails, title, description } = snippet
+const SearchedChannelCard = ({ channel }: IProps) => {
+  const { snippet, id } = channel
+  const { thumbnails, title, description, publishedAt } = snippet
 
-  const channelId = snippet?.resourceId.channelId || snippet.channelId
+  const channelId = id.channelId || snippet.channelId
 
   return (
     <div className='flex w-full'>
@@ -35,9 +35,7 @@ const ChannelCard = ({ channel }: IProps) => {
           <div>
             <h1 className='heading-md overflowed-text2 mb-2'>{title}</h1>
 
-            <p className='para-sm overflowed-text2 mb-1'>
-              {numeral(contentDetails.totalItemCount).format('0.a')} videos
-            </p>
+            <p className='para-sm overflowed-text2 mb-1'>{moment(publishedAt).fromNow()}</p>
             <p className='para-sm overflowed-text2'>{description}</p>
           </div>
         </Link>
@@ -47,4 +45,4 @@ const ChannelCard = ({ channel }: IProps) => {
   )
 }
 
-export default ChannelCard
+export default SearchedChannelCard

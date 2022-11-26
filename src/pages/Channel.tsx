@@ -41,6 +41,7 @@ const Channel = () => {
       {/* <ChannelDetailsSkeleton /> */}
       <hr className='hr my-4' />
       <section className='grid grid-cols-3 gap-x-4 gap-y-10 px-[107px] max-w-[1284px] mx-auto'>
+        {/* <VideoCard />
         <VideoCard />
         <VideoCard />
         <VideoCard />
@@ -59,8 +60,7 @@ const Channel = () => {
         <VideoCard />
         <VideoCard />
         <VideoCard />
-        <VideoCard />
-        <VideoCard />
+        <VideoCard /> */}
       </section>
     </div>
   )

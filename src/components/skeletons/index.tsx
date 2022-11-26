@@ -232,3 +232,11 @@ export const WatchVideCardSkeleton = () => {
     </CustomSkeletonTheme>
   )
 }
+
+export const ChannelIconSkeleton = () => {
+  return (
+    <CustomSkeletonTheme>
+      <Skeleton className='h-full' circle />
+    </CustomSkeletonTheme>
+  )
+}

@@ -13,14 +13,17 @@ import { SlFire } from 'react-icons/sl'
 import { FiSun } from 'react-icons/fi'
 import { HiOutlineMoon } from 'react-icons/hi'
 import { menuItems1, menuItems2 } from '../../data/menuItems'
-import { toggleTheme } from '../../utils/shared/theme'
-import { addRippleEffect } from '../../utils/shared/addRippleEffect'
-import { useAppSelector } from '../../hooks/redux-hooks'
+import { toggleTheme } from '../../utils/shared/theme.util'
+import { addRippleEffect } from '../../utils/shared/addRippleEffect.util'
+import { useAppSelector, useAppDispatch } from '../../hooks/redux-hooks'
+import { removeTokenFromLocalStorage } from '../../utils/others/token.util'
+import { removeUser } from '../../redux/actionCreators'
 
 const Sidebar = () => {
-  const user = { name: 'faheem' }
   const [theme, setTheme] = useState(localStorage.getItem('yt-redesign-theme') || '')
   const { showSidebar } = useAppSelector((state) => state.sidebar)
+  const { auth } = useAppSelector((state) => state)
+  const dispatch = useAppDispatch()
 
   const handleToggleThemeBtnClick = (e: MouseEvent<HTMLElement>) => {
     addRippleEffect(e)
@@ -30,6 +33,8 @@ const Sidebar = () => {
 
   const handleLogoutBtnClick = (e: MouseEvent<HTMLElement>) => {
     addRippleEffect(e)
+    removeTokenFromLocalStorage()
+    dispatch(removeUser())
   }
   return (
     <aside
@@ -93,7 +98,7 @@ const Sidebar = () => {
           {theme === 'dark' ? 'Light mode' : 'Dark mode'}
         </p>
       </div>
-      {user && (
+      {auth?.user && (
         <div onClick={handleLogoutBtnClick} className='menuItem'>
           <AiOutlineLogout className='menuIcon' />
           <p className='para-regular font-normal hidden xm:block'>Logout</p>

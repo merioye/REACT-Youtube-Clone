@@ -1,43 +1,30 @@
-import VideoCard from '../components/shared/VideoCard'
 import MetaData from '../components/shared/MetaData'
+import InfiniteScrollWrapper from '../components/shared/InfiniteScrollWrapper'
+import { useInfiniteData } from '../hooks/useInfiniteData'
+import { getMyLikedVideos } from '../api'
 
 const LikedVideos = () => {
+  const { isLoading, data, hasNextPage, fetchNextPage } = useInfiniteData(
+    ['liked-videos'],
+    getMyLikedVideos,
+  )
+
+  const fetchMoreVideos = () => {
+    fetchNextPage()
+  }
   return (
     <>
       <MetaData title='Liked videos - Youtube Redesign' />
       <main className='bg w-full h-full px-3 md:px-8 py-3'>
-        <section className='grid grid-cols-4 gap-x-4 gap-y-10 overflow-auto scrollbar-hide h-auto max-h-full pt-0 md:pt-3 xm:pt-6'>
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-          <VideoCard />
-        </section>
+        <InfiniteScrollWrapper
+          isLoading={isLoading}
+          hasMore={hasNextPage as boolean}
+          loadMore={fetchMoreVideos}
+          type='smallVideo'
+          data={data}
+          wrapperClasses='overflow-auto scrollbar-hide h-[calc(100%-44px)] pt-0 md:pt-3 xm:pt-6'
+          infiniteClasses='grid grid-cols-4 gap-x-4 gap-y-10'
+        />
       </main>
     </>
   )

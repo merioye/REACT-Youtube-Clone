@@ -25,6 +25,7 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+
     // "@typescript-eslint/no-unused-vars": [
     //   "warn",
     //   {
@@ -35,7 +36,7 @@
     // ],
     "no-unused-vars": "warn",
     "react/react-in-jsx-scope": "off",
-    "camelcase": "error",
+    "camelcase": "off",
     "spaced-comment": "error",
     "quotes": ["error", "single"],
     "no-duplicate-imports": "error",

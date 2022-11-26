@@ -7,7 +7,8 @@ import LikedVideos from './pages/Liked-Videos'
 import Search from './pages/Search'
 import Subscriptions from './pages/Subscriptions'
 import Watch from './pages/Watch'
-import { setThemeValueToHtmlRoot } from './utils/shared/theme'
+import { setThemeValueToHtmlRoot } from './utils/shared/theme.util'
+import { isAuthenticated } from './utils/shared/isAuthenticated.util'
 
 const App = () => {
   useLayoutEffect(() => {
@@ -58,9 +59,9 @@ const App = () => {
 export default App
 
 const ProtectedRoute = () => {
-  const user = { name: 'faheem' }
+  const isLoggedIn = isAuthenticated()
 
-  if (!user) return <Navigate to='/' />
+  if (!isLoggedIn) return <Navigate to='/' />
 
   return <Layout />
 }
