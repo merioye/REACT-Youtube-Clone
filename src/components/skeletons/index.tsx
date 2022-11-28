@@ -203,7 +203,7 @@ export const CommentSkeleton = () => {
   )
 }
 
-export const WatchVideCardSkeleton = () => {
+export const WatchVideoCardSkeleton = () => {
   return (
     <CustomSkeletonTheme>
       <div className='flex gap-3 mt-2'>

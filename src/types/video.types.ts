@@ -68,6 +68,65 @@ export interface Video {
   }
 }
 
+export interface ChannelVideo {
+  kind: string
+  etag: string
+  id: string
+  snippet: {
+    publishedAt: Date
+    channelId: string
+    title: string
+    description: string
+    thumbnails: {
+      default: {
+        url: string
+        height: number
+        width: number
+      }
+      medium: {
+        url: string
+        height: number
+        width: number
+      }
+      high: {
+        url: string
+        height: number
+        width: number
+      }
+      standard: {
+        url: string
+        height: number
+        width: number
+      }
+      maxRes: {
+        url: string
+        height: number
+        width: number
+      }
+    }
+    channelTitle: string
+    videoOwnerChannelTitle: string
+    videoOwnerChannelId: string
+    playlistId: string
+    position: number
+    resourceId: {
+      kind: string
+      videoId: string
+    }
+  }
+  contentDetails: {
+    videoId: string
+    startAt?: string
+    endAt?: string
+    note?: string
+    videoPublishedAt: Date
+  }
+}
+
+export type WatchVideo = Omit<Video, 'contentDetails' | 'id'> & {
+  id: { kind: string; videoId: string }
+}
+
 type VideoDetail = Omit<Video, 'snippet'>
 
 export interface VideoDetails {

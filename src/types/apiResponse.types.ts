@@ -1,6 +1,7 @@
-import { Video } from './video.types'
-import { Subscription } from './channel.types'
+import { ChannelVideo, Video, WatchVideo } from './video.types'
+import { Channel, Subscription } from './channel.types'
 import { SearchItem } from './search.types'
+import { CommentThread } from './comment.types'
 
 export interface HomePageVideosResponse {
   kind: string
@@ -83,4 +84,52 @@ export interface SearchPageResponse {
     resultsPerPage: number
   }
   items: SearchItem[]
+}
+
+export interface ChannelDetailsResponse {
+  kind: string
+  etag: string
+  nextPageToken?: string
+  prevPageToken?: string
+  pageInfo: {
+    totalResults: number
+    resultsPerPage: number
+  }
+  items: Channel[]
+}
+
+export interface ChannelVideosResponse {
+  kind: string
+  etag: string
+  nextPageToken: string
+  prevPageToken?: string
+  pageInfo: {
+    totalResults: number
+    resultsPerPage: number
+  }
+  items: ChannelVideo[]
+}
+
+export interface WatchVideoResponse {
+  kind: string
+  etag: string
+  nextPageToken?: string
+  prevPageToken?: string
+  regionCode?: string
+  pageInfo: {
+    totalResults: number
+    resultsPerPage: number
+  }
+  items: WatchVideo[]
+}
+
+export interface VideoCommentsResponse {
+  kind: string
+  etag: string
+  nextPageToken: string
+  pageInfo: {
+    totalResults: number
+    resultsPerPage: number
+  }
+  items: CommentThread[]
 }

@@ -10,16 +10,15 @@ const Search = () => {
   const [searchParams] = useSearchParams()
   const keyword = searchParams.get('q') || ''
 
-  const { isLoading, data, hasNextPage, fetchNextPage, refetch, isRefetching } = useInfiniteData(
+  const { data, hasNextPage, fetchNextPage, refetch, isRefetching } = useInfiniteData(
     ['search-results'],
     getSearchResults,
     keyword,
-    '0',
   )
 
-  // useEffect(() => {
-  //   refetch()
-  // }, [keyword, refetch])
+  useEffect(() => {
+    refetch()
+  }, [keyword, refetch])
 
   const fetchMoreResults = () => {
     fetchNextPage()

@@ -1,8 +1,6 @@
 import React, { MouseEvent } from 'react'
 
 import { addRippleEffect } from '../../utils/shared/addRippleEffect.util'
-// import { useInfiniteData } from '../../hooks/useInfiniteData'
-// import { getPopularVideos, getVideosByCategory } from '../../api'
 
 type IProps = {
   category: string
@@ -10,17 +8,9 @@ type IProps = {
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>
 }
 const Category = ({ category, selectedCategory, setSelectedCategory }: IProps) => {
-  // const { isLoading, data, hasNextPage, fetchNextPage } = useInfiniteData(
-  //   ['home-videos'],
-  //   getPopularVideos,
-  // )
-
   const handleCategoryBtnClick = (e: MouseEvent<HTMLElement>) => {
     addRippleEffect(e)
     setSelectedCategory(category)
-    // if (category === 'All') {
-
-    // }
   }
   return (
     <button

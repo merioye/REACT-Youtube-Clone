@@ -1,11 +1,22 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-// import { CommentSkeleton } from '../skeletons'
+import { useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+
+import { CommentSkeleton } from '../skeletons'
 import Comment from './Comment'
+import { getCommentsByVideoId } from '../../api'
+import { CommentThread } from '../../types/comment.types'
 
 const CommentsList = () => {
+  const { videoId } = useParams()
+  const { isLoading, data } = useQuery({
+    queryKey: ['comments', videoId],
+    queryFn: () => getCommentsByVideoId(videoId as string),
+  })
+
   return (
     <>
-      <h2 className='heading-sm mt-6'>13 Comments</h2>
+      <h2 className='heading-sm mt-6'>{isLoading ? '' : data?.data.items.length} Comments</h2>
       <div className='flex gap-5 mt-5'>
         <div className='flex items-center h-10 w-10 rounded-full overflow-hidden'>
           <LazyLoadImage
@@ -29,10 +40,12 @@ const CommentsList = () => {
         </div>
       </div>
       <div className='flex flex-col gap-4 mt-8'>
-        {[1, 2, 3, 4, 5].map((comment) => (
-          <Comment key={comment} />
-          // <CommentSkeleton key={comment} />
-        ))}
+        {isLoading
+          ? [1, 2, 3, 4, 5].map((comment) => <CommentSkeleton key={comment} />)
+          : data?.data.items.map((item) => {
+              const commentThread = item as CommentThread
+              return <Comment key={commentThread.id} commentThread={commentThread} />
+            })}
       </div>
     </>
   )

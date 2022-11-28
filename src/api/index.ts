@@ -1,9 +1,13 @@
 import axios from 'axios'
 
 import {
+  ChannelDetailsResponse,
   ChannelIconResponse,
+  ChannelVideosResponse,
   HomePageVideosResponse,
   SubscriptionPageResponse,
+  VideoCommentsResponse,
+  WatchVideoResponse,
 } from '../types/apiResponse.types'
 import { store } from '../redux/store'
 import { VideoDetails } from '../types/video.types'
@@ -14,6 +18,8 @@ export const axiosInstance = axios.create({
     key: process.env.REACT_APP_YOUTUBE_API_KEY,
   },
 })
+
+// Queries
 
 export const getPopularVideos = ({ pageParam = null }) => {
   return axiosInstance.get<HomePageVideosResponse>('/videos', {
@@ -27,17 +33,17 @@ export const getPopularVideos = ({ pageParam = null }) => {
   })
 }
 
-export const getVideosByCategory = ({ pageParam = null }) => {
-  return axiosInstance.get('/search', {
-    params: {
-      part: 'snippet',
-      maxResults: 20,
-      pageToken: pageParam,
-      // q: category,
-      type: 'video',
-    },
-  })
-}
+// export const getVideosByCategory = ({ pageParam = null, keyword = '' }) => {
+//   return axiosInstance.get('/search', {
+//     params: {
+//       part: 'snippet',
+//       maxResults: 20,
+//       pageToken: pageParam,
+//       q: keyword,
+//       type: 'video',
+//     },
+//   })
+// }
 
 export const getMyLikedVideos = ({ pageParam = null }) => {
   return axiosInstance.get<HomePageVideosResponse>('/videos', {
@@ -49,6 +55,17 @@ export const getMyLikedVideos = ({ pageParam = null }) => {
     },
     headers: {
       Authorization: `Bearer ${store.getState().auth?.accessToken}`,
+    },
+  })
+}
+
+export const getRelatedVideos = (videoId: string) => {
+  return axiosInstance.get<WatchVideoResponse>('/search', {
+    params: {
+      part: 'snippet',
+      relatedToVideoId: videoId,
+      maxResults: 15,
+      type: 'video',
     },
   })
 }
@@ -83,11 +100,37 @@ export const getVideoDetails = (videoId: string) => {
   })
 }
 
+export const getVideoById = (videoId: string) => {
+  return axiosInstance.get<WatchVideoResponse>('/videos', {
+    params: {
+      part: 'snippet,statistics',
+      id: videoId,
+    },
+  })
+}
+
 export const getChannelDetails = (channelId: string) => {
-  return axiosInstance.get('/channels', {
+  return axiosInstance.get<ChannelDetailsResponse>('/channels', {
     params: {
       part: 'snippet,statistics,contentDetails',
       id: channelId,
+    },
+  })
+}
+
+export const getChannelUploadPlaylistVideos = ({
+  pageParam = null,
+  uploadPlaylistId = '',
+}: {
+  pageParam: any
+  uploadPlaylistId: string | undefined
+}) => {
+  return axiosInstance.get<ChannelVideosResponse>('/playlistItems', {
+    params: {
+      part: 'snippet,contentDetails',
+      playlistId: uploadPlaylistId,
+      maxResults: 20,
+      pageToken: pageParam,
     },
   })
 }
@@ -105,3 +148,14 @@ export const getMySubscriptions = ({ pageParam = null }) => {
     },
   })
 }
+
+export const getCommentsByVideoId = (videoId: string) => {
+  return axiosInstance.get<VideoCommentsResponse>('/commentThreads', {
+    params: {
+      part: 'snippet',
+      videoId,
+    },
+  })
+}
+
+// Mutations

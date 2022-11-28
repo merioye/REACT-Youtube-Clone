@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import CategoriesList from '../components/Home/CategoriesList'
 import MetaData from '../components/shared/MetaData'
 import InfiniteScrollWrapper from '../components/shared/InfiniteScrollWrapper'
@@ -5,6 +7,8 @@ import { getPopularVideos } from '../api'
 import { useInfiniteData } from '../hooks/useInfiniteData'
 
 const Home = () => {
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
   const { isLoading, data, hasNextPage, fetchNextPage } = useInfiniteData(
     ['home-videos'],
     getPopularVideos,
@@ -17,7 +21,10 @@ const Home = () => {
     <>
       <MetaData title='Youtube Redesign' />
       <main className='bg w-full h-full px-3 md:px-8 py-3'>
-        <CategoriesList />
+        <CategoriesList
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
         <InfiniteScrollWrapper
           isLoading={isLoading}
           hasMore={hasNextPage as boolean}

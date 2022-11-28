@@ -4,11 +4,12 @@ import InfiniteScroll from 'react-infinite-scroller'
 import { Fragment } from 'react'
 
 import {
+  ChannelVideosResponse,
   HomePageVideosResponse,
   SearchPageResponse,
   SubscriptionPageResponse,
 } from '../../types/apiResponse.types'
-import { Video } from '../../types/video.types'
+import { Video, ChannelVideo } from '../../types/video.types'
 import { Subscription } from '../../types/channel.types'
 import { SearchItem } from '../../types/search.types'
 import {
@@ -20,10 +21,17 @@ import VideoCard from '../shared/VideoCard'
 import ChannelCard from '../shared/ChannelCard'
 import SearchedVideoCard from '../searchPage/SearchedVideoCard'
 import SearchedChannelCard from '../searchPage/SearchedChannelCard'
+import ChannelVideoCard from '../others/ChannelVideoCard'
 
 type DataType =
   | InfiniteData<
-      AxiosResponse<HomePageVideosResponse | SubscriptionPageResponse | SearchPageResponse, any>
+      AxiosResponse<
+        | HomePageVideosResponse
+        | SubscriptionPageResponse
+        | SearchPageResponse
+        | ChannelVideosResponse,
+        any
+      >
     >
   | undefined
 
@@ -31,7 +39,7 @@ type IProps = {
   isLoading: boolean
   hasMore: boolean
   loadMore: () => void
-  type: 'smallVideo' | 'largeVideo' | 'channel'
+  type: 'smallVideo' | 'largeVideo' | 'channel' | 'channelVideo'
   data: DataType
   wrapperClasses: string
   infiniteClasses: string
@@ -53,7 +61,7 @@ const InfiniteScrollWrapper = ({
             <ChannelCardSkeleton />
             <hr className='hr my-4' />
           </Fragment>
-        ) : type === 'smallVideo' ? (
+        ) : type === 'smallVideo' || type === 'channelVideo' ? (
           <VideoCardSkeleton key={i} />
         ) : (
           <Fragment key={i}>
@@ -78,7 +86,7 @@ const InfiniteScrollWrapper = ({
                   <ChannelCardSkeleton />
                   <hr className='hr my-4' />
                 </Fragment>
-              ) : type === 'smallVideo' ? (
+              ) : type === 'smallVideo' || type === 'channelVideo' ? (
                 <VideoCardSkeleton key={i} />
               ) : (
                 <Fragment key={i}>
@@ -106,6 +114,11 @@ const InfiniteScrollWrapper = ({
               ? group.data.items.map((item) => {
                   const video = item as Video
                   return <VideoCard key={video.id} video={video} />
+                })
+              : type === 'channelVideo'
+              ? group.data.items.map((item) => {
+                  const video = item as ChannelVideo
+                  return <ChannelVideoCard key={video.id} video={video} />
                 })
               : group.data.items.map((searchResult) => {
                   const item = searchResult as SearchItem
