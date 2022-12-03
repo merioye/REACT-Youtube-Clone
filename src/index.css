@@ -6,19 +6,19 @@
 
 @layer components {
   .button {
-    @apply font-sans py-2 px-4 rounded-full text-sm text-white font-medium hover:bg-red-700 bg-red-600 transition-all duration-300 relative overflow-hidden;
+    @apply font-sans py-2 px-4 rounded-full text-sm text-white font-medium hover:bg-red-700 bg-red-600 transition-all duration-300 relative overflow-hidden disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-white disabled:hover:bg-gray-300 disabled:hover:text-white;
   }
 }
 
 @layer utilities {
   .heading-lg {
-    @apply font-sans text-2xl text-primary dark:text-primary-dark font-medium;
+    @apply font-sans text-lg md:text-2xl text-primary dark:text-primary-dark font-medium;
   }
   .heading-xm {
     @apply font-sans text-xl text-primary dark:text-primary-dark font-medium;
   }
   .heading-md {
-    @apply font-sans text-lg text-primary dark:text-primary-dark font-normal;
+    @apply font-sans text-base sm:text-lg text-primary dark:text-primary-dark font-normal;
   }
   .heading-sm {
     @apply font-sans text-base font-medium text-primary dark:text-primary-dark;

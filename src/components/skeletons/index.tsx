@@ -1,5 +1,6 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+
 import { useAppSelector } from '../../hooks/redux-hooks'
 
 export const CustomSkeletonTheme = ({ children }: { children: React.ReactNode }) => {
@@ -64,14 +65,14 @@ export const ChannelCardSkeleton = () => {
   return (
     <CustomSkeletonTheme>
       <div className='flex items-center w-full'>
-        <div className='flex-1 basis-[1e-9px] mr-4 max-w-[360px] min-w-60'>
-          <div className='flex justify-center items-center flex-none w-60 relative rounded-full overflow-hidden mx-auto'>
-            <div className='leading-none h-[136px] w-[136px] rounded-full overflow-hidden'>
+        <div className='flex-1 basis-[1e-9px] mr-4 max-w-30 min-w-24 md-2:max-w-40 md-2:min-w-36 xm:max-w-[360px] xm:min-w-60'>
+          <div className='flex justify-center items-center flex-none md-2:w-36 xm:w-60 relative rounded-full overflow-hidden mx-auto'>
+            <div className='leading-none h-[80px] w-[80px] md-2:h-[136px] md-2:w-[136px] rounded-full overflow-hidden'>
               <Skeleton className='h-full' circle />
             </div>
           </div>
         </div>
-        <div className='max-w-[calc(100%-376px)] min-w-[calc(100%-256px)]'>
+        <div className='max-w-[calc(100%-120px)] min-w-[calc(100%-96px)] md-2:max-w-[calc(100%-160px)] md-2:min-w-[calc(100%-144px)] xm:max-w-[calc(100%-376px)] xm:min-w-[calc(100%-256px)]'>
           <div>
             <div className='leading-none w-1/4 mb-4'>
               <Skeleton className='h-6' />
@@ -92,8 +93,8 @@ export const ChannelCardSkeleton = () => {
 export const SearchedVideoCardSkeleton = () => {
   return (
     <CustomSkeletonTheme>
-      <div className='flex w-full'>
-        <div className='flex-1 basis-[1e-9px] mr-4 max-w-[360px] min-w-60'>
+      <div className='flex flex-col md-2:flex-row gap-2 md-2:gap-0 w-full'>
+        <div className='flex-1 basis-[1e-9px] mr-4 w-full md-2:w-60 xm:w-[360px]'>
           <div className='leading-none w-full h-auto rounded-xl overflow-hidden relative'>
             <div className='absolute top-0 left-0 w-full h-full'>
               <Skeleton className='h-full' />
@@ -107,7 +108,7 @@ export const SearchedVideoCardSkeleton = () => {
             />
           </div>
         </div>
-        <div className='leading-none w-[calc(100%-376px)] pr-20'>
+        <div className='leading-none w-full md-2:w-[calc(100%-256px)] xm:w-[calc(100%-376px)] pr-0 md-2:pr-20'>
           <Skeleton className='h-7 mb-3' />
           <div className='leading-none w-[130px] h-3 mb-4'>
             <Skeleton className='h-full' />
@@ -115,7 +116,7 @@ export const SearchedVideoCardSkeleton = () => {
           <div className='leading-none w-[130px] h-5 mb-4'>
             <Skeleton className='h-full' />
           </div>
-          <Skeleton className='h-3' />
+          <Skeleton className='h-0 md-2:h-3' />
         </div>
       </div>
     </CustomSkeletonTheme>
@@ -125,11 +126,11 @@ export const SearchedVideoCardSkeleton = () => {
 export const ChannelDetailsSkeleton = () => {
   return (
     <CustomSkeletonTheme>
-      <div className='flex items-center pt-4 pb-1 px-[107px] max-w-[1284px] mx-auto'>
-        <div className='leading-none w-20 h-20 rounded-full overflow-hidden mr-6'>
+      <div className='flex flex-col md:flex-row items-center pt-4 pb-1 px-5 md-2:px-[50px] lg:px-[107px] max-w-[1284px] mx-auto'>
+        <div className='leading-none w-20 h-20 rounded-full overflow-hidden md:mr-6 mr-0 md:mb-0 mb-3'>
           <Skeleton className='h-full' circle />
         </div>
-        <div className='flex flex-col'>
+        <div className='flex items-center md:items-start flex-col'>
           <div className='leading-none h-7 w-[150px] mb-3'>
             <Skeleton className='h-full' />
           </div>

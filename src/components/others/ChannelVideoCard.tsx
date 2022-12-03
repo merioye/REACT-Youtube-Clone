@@ -16,20 +16,23 @@ const ChannelVideoCard = ({ video }: IProps) => {
   const { snippet, contentDetails, id } = video
   const { channelId, channelTitle, thumbnails, title, publishedAt } = snippet
 
-  const videoId = contentDetails.videoId || id
+  const videoId = snippet.resourceId.videoId || id || contentDetails.videoId
 
   const { isLoading: isLoadingDetails, data } = useQuery({
-    queryKey: ['videoDetails', videoId],
-    queryFn: () => getVideoDetails(videoId as string),
+    queryKey: ['videoDetails', contentDetails.videoId],
+    queryFn: () => getVideoDetails(contentDetails.videoId),
     refetchOnWindowFocus: false,
+    staleTime: 1200000,
+    cacheTime: 1200000,
   })
 
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ['channelIcon', channelId],
-  //   queryFn: () => getChannelIcon(channelId),
-  //   refetchOnWindowFocus: false,
-  // })
-  const isLoading = true
+  const { isLoading: isLoadingChannelIcon, data: channelData } = useQuery({
+    queryKey: ['channelIcon', channelId],
+    queryFn: () => getChannelIcon(channelId),
+    refetchOnWindowFocus: false,
+    staleTime: 1200000,
+    cacheTime: 1200000,
+  })
 
   const navigate = useNavigate()
 
@@ -41,7 +44,7 @@ const ChannelVideoCard = ({ video }: IProps) => {
   return isLoadingDetails ? (
     <VideoCardSkeleton />
   ) : (
-    <Link to={`/watch/${id}`}>
+    <Link to={`/watch/${videoId}`}>
       <div>
         <div className='rounded-xl flex overflow-hidden relative mb-2'>
           <LazyLoadImage
@@ -58,21 +61,22 @@ const ChannelVideoCard = ({ video }: IProps) => {
         </div>
         <div className='flex gap-3 pt-3'>
           <div className='flex'>
-            {isLoading ? (
+            {isLoadingChannelIcon ? (
               <div className='leading-none w-9 h-9'>
                 <ChannelIconSkeleton />
               </div>
-            ) : // <LazyLoadImage
-            //   src={data?.data.items[0].snippet.thumbnails.medium.url}
-            //   alt='channelLogo'
-            //   placeholderSrc={data?.data.items[0].snippet.thumbnails.medium.url}
-            //   effect='blur'
-            //   width='36px'
-            //   height='36px'
-            //   style={{ borderRadius: '50%' }}
-            //   onClick={redirectToChannel}
-            // />
-            null}
+            ) : (
+              <LazyLoadImage
+                src={channelData?.data.items[0].snippet.thumbnails.medium.url}
+                alt='channelLogo'
+                placeholderSrc={channelData?.data.items[0].snippet.thumbnails.medium.url}
+                effect='blur'
+                width='36px'
+                height='36px'
+                style={{ borderRadius: '50%' }}
+                onClick={redirectToChannel}
+              />
+            )}
           </div>
           <div id='id'>
             <h4 className='heading-sm max-h-11 overflowed-text2 mb-1'>{title}</h4>

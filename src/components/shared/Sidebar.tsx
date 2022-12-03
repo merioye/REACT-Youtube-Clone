@@ -1,5 +1,5 @@
 import { MouseEvent, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import {
   AiFillHome,
   AiOutlineHome,
@@ -12,6 +12,7 @@ import { MdOutlineSubscriptions, MdSubscriptions, MdOutlineVideoLibrary } from '
 import { SlFire } from 'react-icons/sl'
 import { FiSun } from 'react-icons/fi'
 import { HiOutlineMoon } from 'react-icons/hi'
+
 import { menuItems1, menuItems2 } from '../../data/menuItems'
 import { toggleTheme } from '../../utils/shared/theme.util'
 import { addRippleEffect } from '../../utils/shared/addRippleEffect.util'
@@ -23,6 +24,8 @@ const Sidebar = () => {
   const [theme, setTheme] = useState(localStorage.getItem('yt-redesign-theme') || '')
   const { showSidebar } = useAppSelector((state) => state.sidebar)
   const { auth } = useAppSelector((state) => state)
+  const location = useLocation()
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const handleToggleThemeBtnClick = (e: MouseEvent<HTMLElement>) => {
@@ -35,6 +38,9 @@ const Sidebar = () => {
     addRippleEffect(e)
     removeTokenFromLocalStorage()
     dispatch(removeUser())
+    if (location.pathname === 'liked-videos' || location.pathname === 'subscriptions') {
+      navigate('/')
+    }
   }
   return (
     <aside

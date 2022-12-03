@@ -10,6 +10,7 @@ type IProps = {
 const Comment = ({ commentThread }: IProps) => {
   const { authorProfileImageUrl, authorDisplayName, publishedAt, textDisplay } =
     commentThread.snippet.topLevelComment.snippet
+
   return (
     <div className='flex gap-5'>
       <div className='flex items-center h-10 w-10 rounded-full overflow-hidden'>

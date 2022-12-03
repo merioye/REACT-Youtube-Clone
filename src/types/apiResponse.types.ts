@@ -133,3 +133,14 @@ export interface VideoCommentsResponse {
   }
   items: CommentThread[]
 }
+
+export interface VideoRatingResponse {
+  kind: string
+  etag: string
+  items: [
+    {
+      videoId: string
+      rating: string
+    },
+  ]
+}

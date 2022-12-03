@@ -20,18 +20,22 @@ const Watch = () => {
     queryKey: ['video', videoId],
     queryFn: () => getVideoById(videoId as string),
     refetchOnWindowFocus: false,
+    staleTime: 1200000,
+    cacheTime: 1200000,
   })
 
   const { isLoading: isLoadingRelatedVideos, data: relatedVideos } = useQuery({
     queryKey: ['related-videos'],
     queryFn: () => getRelatedVideos(videoId as string),
     refetchOnWindowFocus: false,
+    staleTime: 1200000,
+    cacheTime: 1200000,
   })
 
   return (
     <>
       <MetaData title='Photoshop for beginners' />
-      <main className='bg w-full h-full px-3 md:px-8 py-3'>
+      <main className='bg w-full h-full px-0 sm:px-3 md:px-8 md:py-3 py-1'>
         <section className='flex flex-col lg:flex-row gap-7 overflow-auto scrollbar-hide h-auto max-h-full max-w-[1280px] pt-0 md:pt-3 mx-auto'>
           <div className='w-full lg:w-[calc(100%-428px)]'>
             <div className='relative overflow-hidden pt-[56.25%] mb-3'>
@@ -51,14 +55,16 @@ const Watch = () => {
                 </div>
               )}
             </div>
-            {isLoadingVideo ? (
-              <VideoDetailsSkeleton />
-            ) : (
-              <VideoDetails videoDetails={data?.data.items[0] as WatchVideo} />
-            )}
-            <CommentsList />
+            <div className='px-3 sm:px-0'>
+              {isLoadingVideo ? (
+                <VideoDetailsSkeleton />
+              ) : (
+                <VideoDetails videoDetails={data?.data.items[0] as WatchVideo} />
+              )}
+              <CommentsList />
+            </div>
           </div>
-          <div className='w-full lg:w-[400px]'>
+          <div className='w-full lg:w-[400px] px-3 sm:px-0'>
             <h2 className='heading-md mb-3'>Up Next</h2>
             {isLoadingRelatedVideos
               ? [...Array(20)].map((i) => <WatchVideoCardSkeleton key={i} />)

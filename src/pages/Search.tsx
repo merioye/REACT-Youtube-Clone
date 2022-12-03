@@ -26,7 +26,7 @@ const Search = () => {
   return (
     <>
       <MetaData title='Searched text - Youtube Redesign' />
-      <main className='bg w-full h-full px-3 md:px-8 py-3'>
+      <main className='bg w-full h-full px-3 md:px-8 sm:py-3 py-1'>
         <InfiniteScrollWrapper
           isLoading={isRefetching}
           hasMore={hasNextPage as boolean}

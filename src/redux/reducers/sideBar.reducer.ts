@@ -1,7 +1,7 @@
 import { TOGGLE_SIDEBAR } from '../actionTypes'
 
 const initialState = {
-  showSidebar: true,
+  showSidebar: window.innerWidth <= 600 ? false : true,
 }
 type actionType = {
   type: string

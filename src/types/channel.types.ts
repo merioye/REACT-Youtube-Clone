@@ -84,3 +84,12 @@ export interface Subscription {
     activityType: string
   }
 }
+
+export interface AddSubscription {
+  snippet: {
+    resourceId: {
+      kind: string
+      channelId: string
+    }
+  }
+}

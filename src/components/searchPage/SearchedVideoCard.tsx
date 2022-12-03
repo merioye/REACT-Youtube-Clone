@@ -22,15 +22,17 @@ const SearchedVideoCard = ({ video }: IProps) => {
     queryKey: ['videoDetails', videoId],
     queryFn: () => getVideoDetails(videoId as string),
     refetchOnWindowFocus: false,
+    staleTime: 1200000,
+    cacheTime: 1200000,
   })
 
-  // const { isLoading:isChannelIconLoading, data } = useQuery({
-  //   queryKey: ['channelIcon', channelId],
-  //   queryFn: () => getChannelIcon(channelId),
-  //   refetchOnWindowFocus: false,
-  // })
-
-  const isChannelIconLoading = true
+  const { isLoading: isLoadingChannelIcon, data: channelData } = useQuery({
+    queryKey: ['channelIcon', channelId],
+    queryFn: () => getChannelIcon(channelId),
+    refetchOnWindowFocus: false,
+    staleTime: 1200000,
+    cacheTime: 1200000,
+  })
 
   const navigate = useNavigate()
 
@@ -42,8 +44,8 @@ const SearchedVideoCard = ({ video }: IProps) => {
     <SearchedVideoCardSkeleton />
   ) : (
     <Link to={`/watch/${videoId}`}>
-      <div className='flex w-full'>
-        <div className='flex-1 basis-[1e-9px] mr-4 max-w-[360px] min-w-60'>
+      <div className='flex flex-col md-2:flex-row gap-2 md-2:gap-0 w-full'>
+        <div className='flex-1 basis-[1e-9px] mr-4 w-full md-2:w-60 xm:w-[360px]'>
           <div className='flex items-center w-full h-auto rounded-xl overflow-hidden relative'>
             <LazyLoadImage
               src={thumbnails.medium.url}
@@ -58,23 +60,23 @@ const SearchedVideoCard = ({ video }: IProps) => {
             </div>
           </div>
         </div>
-        <div className='w-[calc(100%-376px)] pr-20'>
+        <div className='w-full md-2:w-[calc(100%-256px)] xm:w-[calc(100%-376px)] pr-0 md-2:pr-20'>
           <h3 className='heading-md overflowed-text2'>{title}</h3>
           <p className='para-sm'>
             {numeral(data?.data.items[0].statistics.viewCount).format('0.a')} views &nbsp;-{' '}
             {moment(publishedAt).fromNow()}
           </p>
           <div className='flex items-center py-3'>
-            {isChannelIconLoading ? (
+            {isLoadingChannelIcon ? (
               <div className='leading-none w-6 h-6 mr-2'>
                 <ChannelIconSkeleton />
               </div>
             ) : (
               <div className='flex mr-2 w-6 h-6 rounded-full overflow-hidden'>
                 <LazyLoadImage
-                  src='/images/man.svg'
+                  src={channelData?.data.items[0].snippet.thumbnails.medium.url}
                   alt='channelLogo'
-                  placeholderSrc='/images/man.svg'
+                  placeholderSrc={channelData?.data.items[0].snippet.thumbnails.medium.url}
                   effect='blur'
                   width={'100%'}
                   onClick={redirectToChannel}
@@ -88,7 +90,7 @@ const SearchedVideoCard = ({ video }: IProps) => {
               {channelTitle}
             </p>
           </div>
-          <p className='para-sm overflowed-text1'>{description}</p>
+          <p className='para-sm overflowed-text1 '>{description}</p>
         </div>
       </div>
     </Link>

@@ -37,3 +37,14 @@ export interface CommentThread {
   }
   replies?: object
 }
+
+export interface NewComment {
+  snippet: {
+    videoId: string
+    topLevelComment: {
+      snippet: {
+        textOriginal: string
+      }
+    }
+  }
+}

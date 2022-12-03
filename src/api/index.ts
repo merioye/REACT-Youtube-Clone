@@ -7,10 +7,13 @@ import {
   HomePageVideosResponse,
   SubscriptionPageResponse,
   VideoCommentsResponse,
+  VideoRatingResponse,
   WatchVideoResponse,
 } from '../types/apiResponse.types'
 import { store } from '../redux/store'
 import { VideoDetails } from '../types/video.types'
+import { NewComment } from '../types/comment.types'
+import { AddSubscription } from '../types/channel.types'
 
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -149,6 +152,19 @@ export const getMySubscriptions = ({ pageParam = null }) => {
   })
 }
 
+export const checkSubscriptionStatusByChannelId = (channelId: string) => {
+  return axiosInstance.get<SubscriptionPageResponse>('/subscriptions', {
+    params: {
+      part: 'snippet',
+      forChannelId: channelId,
+      mine: true,
+    },
+    headers: {
+      Authorization: `Bearer ${store.getState().auth?.accessToken}`,
+    },
+  })
+}
+
 export const getCommentsByVideoId = (videoId: string) => {
   return axiosInstance.get<VideoCommentsResponse>('/commentThreads', {
     params: {
@@ -159,3 +175,58 @@ export const getCommentsByVideoId = (videoId: string) => {
 }
 
 // Mutations
+
+export const addComment = (comment: NewComment) => {
+  return axiosInstance.post('/commentThreads', comment, {
+    params: {
+      part: 'snippet',
+    },
+    headers: {
+      Authorization: `Bearer ${store.getState().auth?.accessToken}`,
+    },
+  })
+}
+
+export const addSubscription = (subscription: AddSubscription) => {
+  return axiosInstance.post('/subscriptions', subscription, {
+    params: {
+      part: 'snippet',
+    },
+    headers: {
+      Authorization: `Bearer ${store.getState().auth?.accessToken}`,
+    },
+  })
+}
+
+export const removeSubscription = (channelId: string) => {
+  return axiosInstance.delete('/subscriptions', {
+    params: {
+      id: channelId,
+    },
+    headers: {
+      Authorization: `Bearer ${store.getState().auth?.accessToken}`,
+    },
+  })
+}
+
+export const getVideoRating = (videoId: string) => {
+  return axiosInstance.get<VideoRatingResponse>('/videos/getRating', {
+    params: {
+      id: videoId,
+    },
+    headers: {
+      Authorization: `Bearer ${store.getState().auth?.accessToken}`,
+    },
+  })
+}
+export const rateVideo = (videoId: string, rating: string) => {
+  return axiosInstance.post('/videos/rate', null, {
+    params: {
+      id: videoId,
+      rating,
+    },
+    headers: {
+      Authorization: `Bearer ${store.getState().auth?.accessToken}`,
+    },
+  })
+}

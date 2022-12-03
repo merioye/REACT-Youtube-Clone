@@ -15,7 +15,7 @@ const Subscriptions = () => {
   return (
     <>
       <MetaData title='Subscriptions - Youtube Redesign' />
-      <main className='bg w-full h-full px-3 md:px-8 py-3'>
+      <main className='bg w-full h-full px-3 md:px-8 sm:py-3 py-1'>
         <InfiniteScrollWrapper
           isLoading={isLoading}
           hasMore={hasNextPage as boolean}

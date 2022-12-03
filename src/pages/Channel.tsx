@@ -7,6 +7,7 @@ import MetaData from '../components/shared/MetaData'
 import { getChannelDetails, getChannelUploadPlaylistVideos } from '../api'
 import { ChannelDetailsSkeleton } from '../components/skeletons'
 import InfiniteScrollWrapper from '../components/shared/InfiniteScrollWrapper'
+import SubscribeButton from '../components/shared/SubscribeButton'
 
 const Channel = () => {
   const { channelId } = useParams()
@@ -15,6 +16,8 @@ const Channel = () => {
     () => getChannelDetails(channelId as string),
     {
       refetchOnWindowFocus: false,
+      staleTime: 1200000,
+      cacheTime: 1200000,
     },
   )
 
@@ -52,8 +55,8 @@ const Channel = () => {
       {isLoadingChannel ? (
         <ChannelDetailsSkeleton />
       ) : (
-        <div className='flex items-center pt-4 pb-1 px-[107px] max-w-[1284px] mx-auto'>
-          <div className='flex flex-none items-center w-20 h-20 rounded-full overflow-hidden mr-6'>
+        <div className='flex flex-col md:flex-row items-center pt-4 pb-1 px-5 md-2:px-[50px] lg:px-[107px] max-w-[1284px] mx-auto'>
+          <div className='flex flex-none items-center w-[50px] h-[50px] md:w-20 md:h-20 rounded-full overflow-hidden md:mr-6 mr-0 md:mb-0 mb-3'>
             <LazyLoadImage
               src={channel?.data.items[0].snippet.thumbnails.medium.url}
               alt='channelLogo'
@@ -62,17 +65,21 @@ const Channel = () => {
               width={'100%'}
             />
           </div>
-          <div className='flex items-center flex-1'>
+          <div className='flex flex-col md:flex-row items-center flex-1 md:gap-0 gap-3'>
             <div className='flex-1 min-w-[150px] max-h-[90px] overflow-hidden'>
-              <h2 style={{ fontWeight: 400 }} className='heading-lg max-w-full overflow-hidden'>
+              <h2
+                style={{ fontWeight: 400 }}
+                className='heading-lg max-w-full overflow-hidden text-center md:text-left'
+              >
                 {channel?.data.items[0].snippet.title}
               </h2>
-              <p className='font-sans font-normal text-xs md:text-sm text-secondary dark:text-secondary-dark'>
+              <p className='font-sans font-normal text-xs md:text-sm text-secondary dark:text-secondary-dark text-center md:text-left'>
                 {numeral(channel?.data.items[0].statistics.subscriberCount).format('0.a')}{' '}
                 subscribers
               </p>
             </div>
-            <button className='flex-none button'>Subscribe</button>
+
+            <SubscribeButton channelId={channelId as string} />
           </div>
         </div>
       )}
@@ -84,7 +91,7 @@ const Channel = () => {
         type='channelVideo'
         data={data}
         wrapperClasses=''
-        infiniteClasses='grid grid-cols-3 gap-x-4 gap-y-10 px-[107px] max-w-[1284px] mx-auto'
+        infiniteClasses='grid grid-cols-1 md:grid-cols-2 xm:grid-cols-3 gap-x-4 gap-y-10 px-5 md-2:px-[50px] lg:px-[107px] max-w-[1284px] mx-auto'
       />
     </div>
   )
